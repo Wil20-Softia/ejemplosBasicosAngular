@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+	<meta charset="UTF-8">
+	<title>Ejemplo de Ajax Get con AngularJS</title>
+	<style>
+		body{
+			font-family: sans-serif;
+		}
+		li{
+			font-size: 0.8em;
+		}
+		li span{
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body ng-app="apiApp">
+		
+	<div ng-controller="apiAppCtrl as vm">
+		<h1>Pruebo Ajax</h1>
+		<p>
+			Selecciona:
+			<select ng-model="vm.url" ng-change="vm.buscaEnRegion()">
+				<option value="http://restcountries.eu/rest/v1/region/africa">Africa</option>
+				<option value="http://restcountries.eu/rest/v1/region/europe">Europa</option>
+				<option value="http://restcountries.eu/rest/v1/region/americas">America</option>
+			</select>
+		</p>
+		<ul>
+			<li ng-repeat="pais in vm.paises">
+				País: <span>{{pais.name}}</span>, capital: {{pais.capital}}
+			</li>
+		</ul>
+	</div>
+
+
+
+	<script src="../js/angularjs-1.7.9-uncompressed.js"></script>
+	<script>
+		angular
+			.module("apiApp",[])
+			.controller("apiAppCtrl",['$http', controladorPrincipal]);
+
+		function controladorPrincipal($http){
+			var vm = this;
+
+			vm.buscaEnRegion = function(){
+				$http.get(vm.url).then(successCallback, errorCallback);
+			}
+
+			function successCallback(respuesta){
+				//console.log(respuesta);
+				vm.paises = respuesta.data;
+			}
+
+			function errorCallback(error){
+				console.log(error);
+			}
+		}
+	</script>
+</body>
+</html>

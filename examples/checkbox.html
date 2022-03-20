@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+	<meta charset="UTF-8">
+	<title>Directivas en el Input Checkbox</title>
+</head>
+<body ng-app="app" ng-controller="appCtrl as vm">
+	
+	<p>
+		<input type="checkbox" ng-change="vm.avisar()" ng-model="vm.activo">
+		Este campo es vm.activo y su valor en el modelo es {{vm.activo}}
+		<br/>
+		Tiene además un ng-change asociado con el método avisar().
+		<br>
+		{{vm.hola}}
+	</p>
+
+	<p>
+		<input type="checkbox" ng-model="vm.mar" ng-true-value="'claro'" ng-false-value="'oscuro'">
+		Este campo tiene el value modificado. Ahora vale {{vm.mar}}
+	</p>
+
+	<p>
+		<input type="button" ng-click="vm.activo=true" value="Pulsa para cambiar la propiedad del primer checkbox a True">
+		Observarás que aunque el estado pueda cambiar, no se invoca al ng-change de ese primer checkbox.
+	</p>
+
+	<!-- FRAMEWORK ANGULAR JS -->
+	<script src="../js/angularjs-1.7.9-uncompressed.js"></script>
+	<script>
+		var app = angular.module("app",[]);
+		app.controller("appCtrl",function(){
+			var vm = this;
+			//Podriamos inicializar valores del modelo
+			vm.activo = false;
+
+			vm.avisar = function(){
+				alert("Cambié");
+			}
+		});
+	</script>
+</body>
+</html>

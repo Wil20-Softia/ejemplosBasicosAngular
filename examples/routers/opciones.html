@@ -1,0 +1,15 @@
+<h2>Nombre del Usuario: {{vm.nombreUsuario}}</h2>
+<h1>Downloads Options.</h1>
+<p>
+	<h2>Lista de Descargas:</h2>
+	<ul>
+		<li ng-repeat="descarga in vm.descargas">
+			{{$index + 1}} - {{descarga}}
+		</li>
+	</ul>
+</p>
+
+<p>
+	<h3>Cambiar Nombre de Usuario:</h3><br>
+	<input type="text" ng-model="vm.nombre"> <input type="button" value="Cambiar" ng-click="vm.funciones.guardarNombre(); vm.nombre='';">
+</p>

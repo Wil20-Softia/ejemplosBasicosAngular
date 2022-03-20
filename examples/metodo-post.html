@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es-VE" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Metodo Post.</title>
+</head>
+<body>
+	<h1>Metodo Post para enviar datos al Servidor</h1>
+
+	<div ng-controller="appCtrl as vm">
+		
+		<h1>Prueba Ajax.</h1>
+
+		<section>
+			
+			<form ng-submit="vm.enviar()">
+				
+				Nombre: <input type="text" ng-model="vm.fdatos.nombre">
+				<br>
+				Edad: <input type="text" ng-model="vm.fdatos.edad">
+				<br>
+				<input type="submit" value="Enviar">
+
+			</form>
+			
+		</section>
+
+	</div>
+
+	<!-- FRAMEWORK ANGULAR JS -->
+	<script src="../js/angularjs-1.7.9-uncompressed.js"></script>
+
+	<script>
+		angular
+			.module("app",[])
+			.controller("appCtrl",['$http',controladorPrincipal]);
+
+		function controladorPrincipal($http){
+			var vm = this;
+
+			//inicializando el objeto para datos del formulario
+			vm.fdatos = {};
+
+			vm.enviar = function(){
+				$http.post("servidor.php", vm.fdatos)
+					.then(function(res){
+						console.log(res.data);
+					},function(err){
+						console.log(err);
+					});
+			}
+		}
+	</script>
+</body>
+</html>

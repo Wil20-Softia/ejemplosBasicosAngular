@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es-VE" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Rutas en AngularJs</title>
+	<style>
+		.marcado>a{
+			font-weight: bold;
+			font-size: 20px;
+			text-decoration: none;
+			color: red;
+		}
+		li.marcado{
+			list-style: none;
+		}
+	</style>
+</head>
+<body>
+	<nav ng-controller="navCtrl as nav">
+		<ul>
+			<li ng-class="{marcado: nav.estoy('/')}"><a href="#/!">Datos Personales</a></li>
+			<li ng-class="{marcado: nav.estoy('/descargas')}"><a href="#!descargas">Descargas</a></li>
+			<li ng-class="{marcado: nav.estoy('/opciones')}"><a href="#!opciones">Opciones de Cuenta</a></li>
+		</ul>
+	</nav>
+	
+	<hr/>
+
+	<div ng-view></div>
+
+	<script src="../../js/angularjs-1.7.9-uncompressed.js"></script>
+	<script src="../../js/angular-route-1.6.9.js"></script>
+	<script>
+		var appAng = angular.module("app",["ngRoute"]);
+
+		appAng.config(function($routeProvider){
+			$routeProvider
+				.when("/",{
+					controller : "appCtrl",
+					controllerAs: "vm",
+					templateUrl : "home.html"
+				})
+				.when("/descargas",{
+					controller : "appCtrl",
+					controllerAs : "vm",
+					templateUrl : "descargas.html"
+				})
+				.when("/opciones",{
+					controller : "appCtrl",
+					controllerAs : "vm",
+					templateUrl : "opciones.html"
+				});
+		});
+
+		appAng.factory("descargasFactory",function(){
+			var descargasRealizadas = ["Manual de JavaScript", "Manual de jQuery", "Manual de AngularJS"];
+
+			var interfaz = {
+				nombre: "Wilson",
+				getDescargas: function(){
+					return descargasRealizadas;
+				},
+				nuevaDescarga: function(descarga){
+					descargasRealizadas.push(descarga);
+				}
+			};
+
+			return interfaz;
+		});
+
+		appAng.controller("appCtrl", function(descargasFactory){
+			var vm = this;
+			
+			vm.nombreUsuario = descargasFactory.nombre;
+			vm.descargas = descargasFactory.getDescargas();
+
+			vm.funciones = {
+				guardarNombre: function(){
+					descargasFactory.nombre = vm.nombre;
+					vm.nombreUsuario = vm.nombre;
+				},
+				agregarDescargas: function(){
+					descargasFactory.nuevaDescarga(vm.nombreNuevaDescarga);
+					vm.mensaje = "Descarga Agregada";
+				},
+				borrarMensaje: function(){
+					vm.mensaje = "";
+				}
+			};
+		});
+
+		appAng.controller("navCtrl", ["$location",function($location){
+			var map = this;
+
+			map.estoy = function(ruta){
+				return $location.path() == ruta;
+			}
+		}]);
+	</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<h1>DESCARGAS REALIZADAS</h1>
+<ul>
+	<li ng-repeat="descarga in vm.descargas">
+		{{$index + 1}} - {{descarga}}
+	</li>
+</ul>
+<br>
+<h2>Nombre del Usuario: {{vm.nombreUsuario}}</h2>
+<br>
+<h3>Agregar una Descarga a la Lista</h3>
+<span>{{vm.mensaje}}</span>
+<hr>
+<input type="text" ng-model="vm.nombreNuevaDescarga" ng-change="vm.funciones.borrarMensaje()">
+<input type="button" value="Descargar" ng-click="vm.funciones.agregarDescargas(); vm.nombreNuevaDescarga='';">

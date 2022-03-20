@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+	<meta charset="UTF-8">
+	<title>Ej de Controlador</title>
+	<style>
+		.negativo{
+			color: red;
+		}
+
+		.positivo{
+			color: #33f;
+		}
+
+		.titularpeq{
+			font-size: 10pt;
+		}
+
+		.titulargran{
+			font-size: 18pt;
+		}
+
+		.uno{
+			background-color: #666;
+		}
+
+		.dos{
+			background-color: #fff;
+		}
+
+		.tres{
+			font-size: 30px;
+		}
+	</style>
+</head>
+<body>
+
+	<div ng-app="acumuladorApp" ng-controller="acumuladorAppCtrl as vm">
+		<h1 ng-class="vm.tamTitular">Acumulador</h1>
+		<select ng-model="vm.tamTitular">
+			<option value="titularpeq">Peque</option>
+			<option value="titulargran">Gran</option>
+		</select>
+		<h2 ng-class="vm.clases">Control de Operaciones:</h2>
+		¿Cuánto? <input type="text" ng-model="vm.cuanto" size="4"/>
+		<br/>
+		<input type="button" value="+" ng-click="vm.sumar()"/>
+		<input type="button" value="-" ng-click="vm.restar()"/>
+		<br/>
+		<h2>Totales:</h2>
+		<p ng-class="{positivo: vm.total>0, negativo: vm.total<0}">
+			En el acumulador llevamos <span>{{vm.total}}</span>
+		</p>
+	</div>
+	
+
+	<!-- FRAMEWORK ANGULAR JS -->
+	<script src="../js/angularjs-1.7.9-uncompressed.js"></script>
+
+	<script>
+		angular
+			.module("acumuladorApp",[])
+			.controller("acumuladorAppCtrl", controladorPrincipal);
+
+		function controladorPrincipal(){
+			var scope = this;
+			scope.total = 0;
+			scope.cuanto = 0;
+			scope.tamTitular = "titularpeq";
+
+			scope.sumar = () => {
+				scope.total += parseInt(scope.cuanto);
+			}
+
+			scope.restar = () => {
+				scope.total -= parseInt(scope.cuanto);
+			}
+
+			scope.clases = ["tres", "uno"];
+		}
+	</script>
+</body>
+</html>

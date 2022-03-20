@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es-VE" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>Campo Select y ngClick.</title>
+</head>
+<body>
+	<input type="text" ng-model="campotexto">
+
+	<br>
+
+	{{campotexto}} - {{camposelect}}
+
+	<br>
+
+	<select ng-model="camposelect">
+		<option value="uno">1</option>
+		<option value="dos">2</option>
+	</select>
+
+	<input type="button" value="Pulsa Aquí" ng-click="campotexto='WilsonWeenoo.com'">
+
+	<script src="../js/angularjs-1.7.9-uncompressed.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es-VE">
+<head>
+	<meta charset="UTF-8">
+	<title>Directivas y Expresiones Comunes.</title>
+</head>
+<body>
+	
+	<!-- 
+		INICIALIZA LA APLICACION WEB E 
+		INICIALIZA UN DATO (ARRAY, NO ES PERMITIDO EN BUENA PRACTICA) 
+	-->
+	<div ng-app ng-init="pensamientos = [];">
+		<h1>Altavoz AngularJS</h1>
+		<p>
+			¿Qué hay de nuevo?
+			<br>
+			<!-- 
+				SE COLOCA LA DIRECTIVA PARA DECLARAR ASI UNA VARIABLE QUE ALMACENARA EL VALOR DEL CAMPO 
+			-->
+			<input type="text" ng-model="nuevoPensamiento"/>
+
+			<!-- 
+				SI SE PRESIONA EL BOTON EL VALOR DEL CAMPO DE TEXTO ACTUAL SE GUARDA EN EL DATO INICIALIZADO (ARRAY) Y SE REINICIA EL CAMPO DE TEXTO ACTUAL 
+			-->
+			<input type="button" value="Agregar" ng-click="pensamientos.push(nuevoPensamiento); nuevoPensamiento = '';"/>
+		</p>
+		<h2>Pensamientos que has tenido</h2>
+		<!--
+			SE REALIZA UN BUCLE QUE RECORRA TODO EL ARRAY (pensamientos) Y SE INICIALIZA UN DATO
+			DEL BUCLE ($index) QUE INDICA EL INDICE DEL DATO INTRODUCIDO EN EL ARRAY, AL ESTE SER DESPLEGADO
+		-->
+		<p ng-repeat="pensamiento in pensamientos" ng-init="paso = $index">
+			Pensaste esto: {{pensamiento}} (Iteración con indice {{paso}})
+		</p>
+	</div>
+
+	<script src="../js/angularjs-1.7.9-uncompressed.js"></script>
+</body>
+</html>
